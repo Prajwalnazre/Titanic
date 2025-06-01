@@ -4,7 +4,7 @@ import pickle
 import sklearn as skl
 
 # Load model
-model = pickle.load(open('model.pkl', 'rb'))
+model = pickle.load(open('random_forest.pkl', 'rb'))
 
 # App title
 st.title("🚢 Titanic Survival Prediction")
