@@ -65,7 +65,9 @@ X_Pred.loc[X_Pred['Family_Size'] == 1, 'Is_Alone'] = True
 # Add new feature Age_Missing
 X_Pred['Age_Missing'] = X_Pred['Age'].isnull().astype(int)
 
-scaler = skl.preprocessing.StandardScaler()
+with open("standard_scaler.pkl", "rb") as f:
+    scaler = pickle.load(f)
+    
 X_Pred[['Age','SibSp','Parch','Fare','Family_Size']] = scaler.transform(X_Pred[['Age','SibSp','Parch','Fare','Family_Size']])
 
 print(X_Pred.dtypes)
