@@ -10,9 +10,9 @@ model = pickle.load(open('random_forest.pkl', 'rb'))
 st.title("🚢 Titanic Survival Prediction")
 
 # User input
-title = st.text_input("Title : ")
+title = st.selectbox("Title : ", ["Master", "Mr", "Mrs", "Miss", "Others"])
 pclass = st.selectbox("Passenger Class : ", [1, 2, 3])
-sex = st.selectbox("Sex : ", ['male', 'female'])
+# sex = st.selectbox("Sex : ", ['male', 'female'])
 age = st.slider("Age : ", 5, 54)
 sibsp = st.slider("Siblings/Spouses Aboard : ", 0, 3)
 parch = st.slider("Parents/Children Aboard : ", 0, 2)
@@ -23,7 +23,7 @@ fare = st.number_input("Fare : ", min_value=7, max_value=112)
 input_df = pd.DataFrame([{
     'Title' : title,
     'Pclass': pclass,
-    'Sex': sex,
+    # 'Sex': sex,
     'Age': age,
     'SibSp': sibsp,
     'Parch': parch,
@@ -78,11 +78,11 @@ col_names = ["Sex_female",
 for col_name in col_names :
     X_Pred[col_name] = False
 
-if X_Pred["Sex"][0] == "male" :
-    X_Pred["Sex_male"][0] = True
+# if X_Pred["Sex"][0] == "male" :
+#     X_Pred["Sex_male"][0] = True
 
-if X_Pred["Sex"][0] == "female" :
-    X_Pred["Sex_female"][0] = True
+# if X_Pred["Sex"][0] == "female" :
+#     X_Pred["Sex_female"][0] = True
 
 if X_Pred["Embarked"][0] == "S" :
     X_Pred["Embarked_S"][0] = True
@@ -104,16 +104,21 @@ if X_Pred["Pclass"][0] == 3 :
 
 if X_Pred["Title"][0] == "Master" :
     X_Pred["Title_Master"][0] = True
+    X_Pred["Sex_male"][0] = True
 elif X_Pred["Title"][0] == "Miss" :
     X_Pred["Title_Miss"][0] = True
+    X_Pred["Sex_female"][0] = True
 elif X_Pred["Title"][0] == "Mr" :
     X_Pred["Title_Mr"][0] = True
+    X_Pred["Sex_male"][0] = True
 elif X_Pred["Title"][0] == "Mrs" :
     X_Pred["Title_Mrs"][0] = True
+    X_Pred["Sex_female"][0] = True
 else :
     X_Pred["Title_Rare_Mr"][0] = True
+    X_Pred["Sex_male"][0] = True
 
-X_Pred.drop(columns=["Title", "Pclass", "Embarked", "Sex"], inplace=True)
+X_Pred.drop(columns=["Title", "Pclass", "Embarked"], inplace=True)
 
 # Add new feature Is_Alone
 X_Pred['Is_Alone'] = False
