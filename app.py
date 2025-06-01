@@ -76,7 +76,7 @@ col_names = ["Sex_female",
              ]
 
 for col_name in col_names :
-    X_Pred = False
+    X_Pred[col_name] = False
 
 if X_Pred["Sex"][0] == "male" :
     X_Pred["Sex_male"][0] = True
