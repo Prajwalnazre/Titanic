@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import sklearn as skl
 
 # Load model
 model = pickle.load(open('model.pkl', 'rb'))
@@ -64,8 +65,13 @@ X_Pred.loc[X_Pred['Family_Size'] == 1, 'Is_Alone'] = True
 # Add new feature Age_Missing
 X_Pred['Age_Missing'] = X_Pred['Age'].isnull().astype(int)
 
+scaler = skl.preprocessing.StandardScaler()
+X_Pred[['Age','SibSp','Parch','Fare','Family_Size']] = scaler.transform(X_Pred[['Age','SibSp','Parch','Fare','Family_Size']])
+
+print(X_Pred.dtypes)
+
 # Predict button
 if st.button("Predict"):
-    prediction = model.predict(input_df)[0]
+    prediction = model.predict(X_Pred)[0]
     result = "🟢 Survived" if prediction == 1 else "🔴 Did Not Survive"
     st.subheader(result)
