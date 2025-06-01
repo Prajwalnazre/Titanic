@@ -113,7 +113,7 @@ elif X_Pred["Title"][0] == "Mrs" :
 else :
     X_Pred["Title_Rare_Mr"][0] = True
 
-X_Pred.drop(columns=["Title", "Pclass", "Emabarked", "Sex"], inplace=True)
+X_Pred.drop(columns=["Title", "Pclass", "Embarked", "Sex"], inplace=True)
 
 # Add new feature Is_Alone
 X_Pred['Is_Alone'] = False
